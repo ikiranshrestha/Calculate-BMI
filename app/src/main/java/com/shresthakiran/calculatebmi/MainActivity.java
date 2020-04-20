@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText etGender;
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     EditText etWeight;
     Button btnGetBMI;
     TextView tvBMIResult;
+    DecimalFormat formatter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +36,12 @@ public class MainActivity extends AppCompatActivity {
         tvBMIResult = findViewById(R.id.tvBMIResult);
         tvBMIResult.setVisibility(View.GONE);
 
+        formatter = new DecimalFormat("#0.0");
+
         btnGetBMI.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-
                 String gender, bmi_status = "";
                 int age;
                 double height = 0.0, weight = 0.0;
@@ -68,14 +73,17 @@ public class MainActivity extends AppCompatActivity {
                 double bmi = weight/(height*height);
                 if(bmi < 18.5){
                     bmi_status = "You are underweight.";
-                }else if(bmi >= 18.5 && bmi<= 24.9){
+                }else if(bmi >= 18.5 && bmi< 25){
                     bmi_status = "Your weight is suitable for your height.";
-                }else if(bmi > 24.9 && bmi <=39.9){
-                    bmi_status = "You are obese.";
-                }else if(bmi > 39.9 && bmi>40){
+                }else if(bmi >= 25 && bmi<30){
+                    bmi_status = "You are overweight for your height.";
+                }else if(bmi <= 30 && bmi < 40){
+                    bmi_status = "You are obese";
+                }
+                else if(bmi >= 40){
                     bmi_status = "You are morbidly obese.";
                 }
-                tvBMIResult.setText("Your BMI is "+bmi+".\n"+bmi_status);
+                tvBMIResult.setText("Your BMI is "+formatter.format(bmi)+"kg/m\u00B2.\n"+bmi_status);
                 tvBMIResult.setVisibility(View.VISIBLE);
             }
         });
