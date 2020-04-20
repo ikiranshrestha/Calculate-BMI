@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     bmi_status = "Your weight is suitable for your height.";
                 }else if(bmi >= 25 && bmi<30){
                     bmi_status = "You are overweight for your height.";
-                }else if(bmi <= 30 && bmi < 40){
+                }else if(bmi >= 30 && bmi < 40){
                     bmi_status = "You are obese";
                 }
                 else if(bmi >= 40){
